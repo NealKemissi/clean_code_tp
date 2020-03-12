@@ -1,41 +1,52 @@
 package clean_code_tp;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MyDesk {
 	
-	private ArrayList<Postit> inProgressTasks;
-	private ArrayList<Postit> finishedTasks;
+	public ArrayList<Ticket> inProgressTasks;
+	public ArrayList<Ticket> finishedTasks;
+	public Persistence persistence;
 	
 	public MyDesk() {
+		Persistence persistence = new Persistence();
 		// TODO recup les postit du fichiers
 	}
 	
-	/**
-	 * @return the inProgressTasks
-	 */
-	public ArrayList<Postit> getInProgressTasks() {
-		return inProgressTasks;
+	public void createTicket(String name) {
+		Ticket ticket = new Ticket(name);
+		this.persistence.newTicket(ticket);
 	}
-
-	/**
-	 * @param inProgressTasks the inProgressTasks to set
-	 */
-	public void setInProgressTasks(ArrayList<Postit> inProgressTasks) {
-		this.inProgressTasks = inProgressTasks;
-	}
-
-	/**
-	 * @return the finishedTasks
-	 */
-	public ArrayList<Postit> getFinishedTasks() {
-		return finishedTasks;
-	}
-
-	/**
-	 * @param finishedTasks the finishedTasks to set
-	 */
-	public void setFinishedTasks(ArrayList<Postit> finishedTasks) {
-		this.finishedTasks = finishedTasks;
+	
+	private void getAllProgressTasks() {
+		File todo = this.persistence.todo;
+		try {
+			FileReader fileReader = new FileReader(todo);
+			BufferedReader br = new BufferedReader(fileReader);
+			String line = br.readLine();
+			while (line != null) {
+				String[] ticketElement = line.split(";");
+				Ticket ticket = new Ticket(name);
+	            sb.append(line);
+	            sb.append("\n");
+	            line = br.readLine();
+	        }
+			
+			
+			int data = fileReader.read();
+			while(data != -1) {
+			  data = fileReader.read();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

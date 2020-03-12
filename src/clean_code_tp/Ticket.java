@@ -2,22 +2,29 @@ package clean_code_tp;
 
 import java.util.Date;
 
-public class Postit {
+public class Ticket {
 	
-	private String description;
+	private String name;
 	private Date creationDate;
 	private String state;
+	
+	public Ticket(String name) {
+		this.name = name;
+		this.creationDate = new Date();
+		this.state = "TODO";
+	}
+	
 	/**
-	 * @return the description
+	 * @return the name
 	 */
-	public String getDescription() {
-		return description;
+	public String getName() {
+		return name;
 	}
 	/**
-	 * @param description the description to set
+	 * @param name the description to set
 	 */
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name) {
+		this.name = name;
 	}
 	/**
 	 * @return the creationDate
