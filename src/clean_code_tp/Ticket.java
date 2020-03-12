@@ -1,5 +1,6 @@
 package clean_code_tp;
 
+import java.text.ParseException;
 import java.util.Date;
 
 public class Ticket {
@@ -12,6 +13,12 @@ public class Ticket {
 		this.name = name;
 		this.creationDate = new Date();
 		this.state = "TODO";
+	}
+	
+	public Ticket(String name, Date creationDate, String state) throws ParseException {
+		this.name = name;
+		this.creationDate = creationDate;
+		this.state = state;
 	}
 	
 	/**

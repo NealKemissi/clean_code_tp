@@ -5,7 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class MyDesk {
 	
@@ -14,8 +18,9 @@ public class MyDesk {
 	public Persistence persistence;
 	
 	public MyDesk() {
-		Persistence persistence = new Persistence();
-		// TODO recup les postit du fichiers
+		this.persistence = new Persistence();
+		this.inProgressTasks = getAllProgressTasks();
+		this.finishedTasks = getAllFinishedTasks();
 	}
 	
 	public void createTicket(String name) {
@@ -23,7 +28,8 @@ public class MyDesk {
 		this.persistence.newTicket(ticket);
 	}
 	
-	private void getAllProgressTasks() {
+	private ArrayList<Ticket> getAllProgressTasks() {
+		ArrayList<Ticket> tickets = new ArrayList<>();
 		File todo = this.persistence.todo;
 		try {
 			FileReader fileReader = new FileReader(todo);
@@ -31,22 +37,44 @@ public class MyDesk {
 			String line = br.readLine();
 			while (line != null) {
 				String[] ticketElement = line.split(";");
-				Ticket ticket = new Ticket(name);
-	            sb.append(line);
-	            sb.append("\n");
+				Date dateCreation = new SimpleDateFormat("dd/MM/yyyy").parse(ticketElement[1]);
+				Ticket ticket = new Ticket(ticketElement[0], dateCreation, ticketElement[2]);
+				this.inProgressTasks.add(ticket);
 	            line = br.readLine();
 	        }
-			
-			
-			int data = fileReader.read();
-			while(data != -1) {
-			  data = fileReader.read();
-			}
+			br.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		return tickets;
+	}
+	
+	private ArrayList<Ticket> getAllFinishedTasks() {
+		ArrayList<Ticket> tickets = new ArrayList<>();
+		File done = this.persistence.done;
+		try {
+			FileReader fileReader = new FileReader(done);
+			BufferedReader br = new BufferedReader(fileReader);
+			String line = br.readLine();
+			while (line != null) {
+				String[] ticketElement = line.split(";");
+				Date dateCreation = new SimpleDateFormat("dd/MM/yyyy").parse(ticketElement[1]);
+				Ticket ticket = new Ticket(ticketElement[0], dateCreation, ticketElement[2]);
+				tickets.add(ticket);
+	            line = br.readLine();
+	        }
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return tickets;
 	}
 }
