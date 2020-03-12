@@ -10,8 +10,8 @@ public class Persistence {
 	public File done;
 	
 	public Persistence() {
-		this.todo = new File(this.getClass().getResource("todo.txt").getFile());
-		this.done = new File(this.getClass().getResource("done.txt").getFile());
+		this.todo = new File("C:\\Users\\Neal\\eclipse-workspace\\clean_code_tp\\ressources\\todo.txt");
+		this.done = new File("C:\\Users\\Neal\\eclipse-workspace\\clean_code_tp\\ressources\\done.txt");
 	}
 	
 	public void newTicket(Ticket ticket) {
