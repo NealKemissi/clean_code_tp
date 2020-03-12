@@ -6,7 +6,7 @@ public class Main {
 	static Scanner sc = new Scanner(System.in);
 	static MyDesk desk = new MyDesk();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		
 		
@@ -23,11 +23,11 @@ public class Main {
 			createTicket();
 			break;
 		case 2 :
-			break;
+			throw new Exception("not implemented yet");
 		case 3 :
-			break;
+			throw new Exception("not implemented yet");
 		case 4 :
-			break;
+			throw new Exception("not implemented yet");
 		case 5 :
 			break;
 		case 6 :
